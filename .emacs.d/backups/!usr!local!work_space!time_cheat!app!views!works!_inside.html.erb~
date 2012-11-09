@@ -1,0 +1,5 @@
+<td><%= inside.classification %></td>
+<td><%= inside.op.strftime("%R") %></td>
+<td><%= inside.ed.strftime("%R") %></td>
+<td><%= inside.rest.strftime("%R") %></td>
+<td><%= inside.note %></td>

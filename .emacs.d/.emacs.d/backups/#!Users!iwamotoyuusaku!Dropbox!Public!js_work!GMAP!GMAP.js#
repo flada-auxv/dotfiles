@@ -1,0 +1,306 @@
+var GMAP = (function() {
+    var DEFAULT_ZOOM = 13;
+    
+    var map = null,
+        userGeo = null, // userのgeo情報
+        mainScreen = true, // true = マップを表示, false = marker詳細を表示
+        markerArray = [], // marker自身を格納
+        markerContent = {}; // markerの詳細を格納
+    
+    
+    /* 新しいマーカーを追加する */
+    function addMarker(tweet) {
+        console.log(tweet);
+        var position = extractLocation(tweet);
+        var marker = new google.maps.Marker({
+            position: position,
+            map: map,
+            title: tweet.from_user_name,
+            icon: 'img/pin-inactive.png'
+        });
+        markerArray.push(marker);
+        markerContent[marker.getTitle()] = tweet.text;
+        
+        // マーカーにクリックイベントを登録
+        google.maps.event.addListener(marker, 'click', function() {
+            activateMarker(marker,tweet);
+        });
+    } // addMarker
+    
+    
+    /* マーカーをactive化する */
+    function activateMarker(marker, tweet) {
+        // 全てのimgをinactiveに
+        for (var i = 0; i < markerArray.length; i++) {
+            markerArray[i].setIcon('img/pin-inactive.png');
+        } // for
+        
+        // activate対象の引数で受け取ったものだけimgをactiveに
+        marker.setIcon('img/pin-active.png');
+        
+        // まずは初期化処理 marker.getTitle()はgmaps-api
+        var markerTitle = document.querySelector('#nav .marker-title');
+        markerTitle.innerText = marker.getTitle();
+        markerTitle.className = 'marker-title';
+        markerTitle.removeEventListener('click',arguments.callee);
+        
+        // 表示をリンクっぽくする .has-detail
+	markerTitle.className = 'marker-title has-detail';
+        markerTitle.addEventListener('click', function() {
+            setChildScreen(tweet);
+            showScreen('marker-detail', tweet);
+        });
+        
+        updateMarkerNav(getMarkerIndex(marker));
+    } // activateMarker
+    
+    
+    /* 現在選択中のマーカーのインデックスを取得 */
+    function getMarkerIndex(marker) {
+        for (var i = 0; i < markerArray.length; i++) {
+            if (markerArray[i] === marker) {
+                return i;
+            } // if
+        } // for 
+        return -1;
+    } // getMarkerIndex
+    
+
+    /* マーカーの選択順序が左上から右下になるようにソート */
+    function sortMarkers() {
+        markerArray.sort(function(markerA, markerB) {
+            // getPosition()はgmaps-api LatLngオブジェクトを返す
+            var posA = markerA.getPosition(); 
+            var posB = markerB.getPosition();
+            
+            // lat()/lng()はLatLngオブジェクトのメソッド 値を取得
+            // 関数の評価結果で負数が帰るとAを前に、正数が帰るとBを前に並び替える
+            // つまりこの場合、Bの経度が大きいとBのインデックスが大きい方にソートされる
+            var result = posA.lng() - posB.lng();
+            return result;
+        });
+    } //sortMarkers
+    
+    
+    /* マーカーナビゲーションを更新する */
+    function updateMarkerNav(markerIndex) {
+        var markerNav = document.querySelector('#nav'); // 後でも使うので
+        var img = markerNav.querySelectorAll('img');
+
+        for (var i = 0; i < img.length; i++) {
+            // 初期化
+            img[i].removeEventListener('click', arguments.callee);
+            i === 0 
+                ? img[i].className = 'left disabled' 
+                : img[i].className = 'right disabled';
+        }
+        
+        // インデックスが0より大きい = 戻れる
+        if (markerIndex > 0) {
+            var imgLeft = markerNav.querySelector('img.right');
+            img[0].className = "left";
+            img[0].addEventListener('click', function() {
+                activateMarker(markerArray[markerIndex - 1]); // 戻るがクリックされたので-1
+            });
+        } // if
+        
+        // インデックスが最大値より小さい = 進める
+        if (markerIndex < markerArray.length - 1) {
+            img[1].className = "right";
+            img[1].addEventListener('click', function() {
+                activateMarker(markerArray[markerIndex + 1]); // 進むがクリックされたので+1
+            });
+        } // if
+    }
+    
+    
+    /* markerの詳細をmapの上のレイヤーへ表示する */
+    function showScreen(screenId) {
+        mainScreen = typeof screenId !== 'string'; // screenIdがstringではない = true
+        if (! mainScreen) { 
+            document.querySelector('#' + screenId).style.left = '0px';
+            
+            // 位置ハッシュをマーカー詳細に更新する
+            window.location.hash = screenId;
+        } else {
+            document.querySelector('div.child-screen').style.left = '100%';
+            window.location.hash = '';
+        } // if...else
+    }// showScreen
+    
+    
+    /* 画面の初期化 */
+    function initScreen() {
+        // 位置ハッシュの変化を監視
+        setInterval(function() {
+            if((! mainScreen) && (window.location.hash === '')) {
+                showScreen();
+            } // if
+        }, 10);
+        // TODO これボタン複数あったらリスナ登録できてないのでは？querySelectorAll??
+        document.querySelector('button.close').addEventListener('click', showScreen);
+    } // initScreen
+    
+    function getUserGeolocation() {
+        var results =[];
+        var options = {
+            timeout: 10000, 
+            maximumAge: 600000, // キャッシュ受け入れの時間
+            enableHighAccuracy: false // 正確な位置情報を要求するか
+        };
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                // success
+                function(pos) {
+                    console.log('pos at getUserGeolocation: ' + pos.coords.latitude + "/" + pos.coords.longitude);
+                    results.push(pos.coords.latitude);
+                    results.push(pos.coords.longitude);
+                    userGeo = results;
+		    GMAP.getTweetsOnGmap();
+                },
+                // error
+                function(error) {
+                    alert('位置情報の取得に失敗しました');
+                    console.log('getUserGeolocation:　位置情報の取得に失敗/' + error);
+                    // TODO デフォルト値の設定
+                    return null;
+                }, 
+                options);
+        } else {
+            // TODO デフォルト値の設定
+            alert('お使いのブラウザではこの機能はサポートされていません');
+        }
+    }
+    
+    /* userGeoをもとに付近のtweetをJSONPリクエストする */
+    function getNearTweet() {
+        // TODO 範囲指定のハードコード直す
+        var geocode = userGeo[0] + ',' + userGeo[1] + ',25km';
+	var query = 'テスト'; // TODO 直して
+        var url = "http://search.twitter.com/search.json?callback=GMAP.callbackJSONP&lang=ja&locale=ja&q=" + encodeURI(query) + "&geocode=" + encodeURI(geocode);
+        var target = document.createElement('script');
+        target.src = url;
+        document.body.appendChild(target);
+        console.log("url at getNearTweet(): " + url);
+        // GMAP.callbackJSONPが実行される
+    }
+
+    
+    /* tweetデータから位置情報を返す */
+    function extractLocation(tweet) {
+        var location;
+        // geotaggAPIでtweetした位置情報を付加しているなら
+        if (tweet.geo) {
+            location = new google.maps.LatLng(tweet.geo.coordinates[0], tweet.geo.coordinates[1]);
+            console.log("use twitter's geo//extractLocation:" + location);
+            return location;
+        }
+        // tweetした位置情報がなければプロフィールの位置情報を利用
+        else if (tweet.location.match(/(-?[0-9]+\.[0-9]+),\s*(-?[0-9]+\.[0-9]+)/)) {
+            location = new google.maps.LatLng(RegExp.$1, RegExp.$2);
+            console.log("use twitter's profile//extractLocation:" + location);
+            return location;
+        }
+        // しょうがないからランダム表示
+        console.log("use random geo");
+        return getRandomPosition();
+    }
+    
+    
+    /* map描画範囲内の座標をランダムで返す */
+    function getRandomPosition() {
+        var limit = map.getBounds().getNorthEast(); // 現在描画範囲の右上端
+        var under = map.getBounds().getSouthWest(); // 現在描画範囲の左下端
+        var latRange = limit.lat() - under.lat(); // 緯度の振れ幅
+        var lngRange = limit.lng() - under.lng(); // 経度の振れ幅
+        var randomLat = latRange * Math.random() + under.lat();
+        var randomLng = lngRange * Math.random() + under.lng();
+        // debug-start
+        console.log("limit:" + limit + ", under:" + under + "//lat:" + randomLat + ", lng:" + randomLng);
+        // debug-end  
+        return new google.maps.LatLng(randomLat, randomLng);
+    }
+    
+    
+    /* スクリーンにtweet情報をセット */
+    function setChildScreen(tweet) {
+        document.querySelector("#marker-detail .content").innerText = tweet.text;
+        var firstPart = document.querySelector('div.first-part');
+        var fp = firstPart.children;
+        fp[0].src = tweet.profile_image_url;
+        fp[1].innerText = tweet.from_user_name;
+        fp[2].innerText = "@" + tweet.from_user;
+    }
+    
+
+    var module = {
+        addMarker: addMarker,
+        
+        /* mapオブジェクトを生成して画面を初期化 */
+        init: function(zoomLevel) {
+            var myOptions = {
+                zoom: zoomLevel ? zoomLevel : DEFAULT_ZOOM,
+                center: new google.maps.LatLng(userGeo[0], userGeo[1]),
+                mapTypeControl: false,
+                streetViewControl: false,
+                mapTypeId: google.maps.MapTypeId.ROADMAP // ROADMAPは普通のやつ
+            };
+            map = new google.maps.Map(document.querySelector("#map_canvas"), myOptions);
+            initScreen();
+        }, // init
+        
+        
+        /* 1つでもマーカーが存在するならactivate 初期化 */
+        updateDisplay: function() {
+            var firstMarker = markerArray.length > 0 ? markerArray[0] : null;
+            sortMarkers();
+            if (firstMarker) {
+                activateMarker(firstMarker);
+            }
+        }, // updateDisplay
+	getUserGeolocation: function() {
+	    
+	}
+        
+        /* tweetを取得してgmap上に表示 */
+        getTweetsOnGmap: function(query) {
+	    getUserGeolocation();
+	    alert('yes');
+	    if (userGeo) {
+		GMAP.init();
+		getNearTweet(query);
+	    }
+        },
+
+        /* TwitterSearchAPIのコールバックfunc */
+        callbackJSONP: function(tweetArray) {
+            var tweets = tweetArray.results;
+            for (var num in tweets) {
+                addMarker(tweets[num]);
+            }
+        } // callbackJSONP
+    }; // module
+    
+    return module;
+})();  
+
+
+// TODO IE8以前には対応していない
+document.addEventListener('DOMContentLoaded', function() {
+    var queryForm = document.querySelector('.query');
+    queryForm.addEventListener('change', function() {
+	GMAP.getUserGeolocation();
+	var query = queryForm.innerText;
+
+	GMAP.getTweetsOnGmap(query);
+    });
+    GMAP.updateDisplay();
+}, false);
+
+window.onload = function() {
+    // スマホでURLバーを隠す処理 DOMContentLoadedだとダメ
+    setTimeout(scrollTo, 100, 0, 1);
+};
+
+
+

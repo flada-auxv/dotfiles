@@ -1,0 +1,119 @@
+GitHandsOn!! 
+===============
+## まずはGitのインストール
+### Windowsに入れてみよう。
++ msysGit : インストーラお任せで、お手軽。
++ Cygwin : セットアップ時のパッケージで選択。一緒にopenSSHも入れておく必要アリ。エディタもね。
++ Linux on VMware(VirtualBox) 
+とりあえず、[msysGit](http://git-scm.com/)から入ってみては？？
+
+↓参考URL↓
+http://www.karakaram.com/windows/git-install/
+http://msysgit.github.com/
+
+## Git入れたらまずやる事
+### 名前とメールアドレスの設定
+Git config --global user.name あなたの名前
+コミットした時とかに表示される。設定しないとコンピュータ名とか出てしまって格好悪い><
+
+### カラーで格好良く！！
+Git config --global color.ui auto
+~/.gitconfigファイルで確認できる。直接編集も可能。
+
+Git config --global user.emal メールアドレス
+
+↓ここの資料を参考にしながら進めていきましょう↓
+http://ppworks.hatenablog.jp/entry/2012/04/16/013558
+
+■まずはcloneしてみよう！
+ローカルリポジトリを配置したいディレクトリに移動　とりまデスクトップで良いです。
+$ pwd  // あなたがいるディレクトリ階層
+$ cd c:/Documents and Settings/seraku/デスクトップ かな？？
+$ git clone https://github.com/seraku-learning-room/Git_HandsOn.git
+
+なんと、msysGitでは右クリックでGit bashを対象ディレクトリをカレントディレクトリとして開けるそうな。
+
+// cloneせずに自分でリポジトリを作成するのであれば、リポジトリの初期化が必要
+// $ mkdir リポジトリ名
+// $ git init
+// これで.gitファイル等が作成されgitによるバージョン管理が始まる！！
+// cloneしてきた場合はすでにこのセッティングが出来ているので必要ない。
+
+■cloneしたローカルリポジトリに移動しよう！
+$ ls -a            // -aは"."から始まる隠しフォルダも見えるようになる  
+$ cd Git_HandsOn 
+
+■適当に編集しよう！
+$ emacs prease_edit.txt    
+
+え？emacs入ってないの！？信じられないorz
+そういう方はGUIから操作してテキストエディタで編集してみて下さい。
+新しく.txtとかでファイルを設置してみても良いですね。
+
+■状況を確認しよう！
+$ git status
+
+<出力結果例>
+# On branch master // あなたのいるブランチ
+# Untracked files: // ステージングされていないファイルを知らせてくれる
+#   (use "git add <file>..." to include in what will be committed)
+#
+#	memo.txt
+#	prease_edit.txt
+nothing added to commit but untracked files present (use "git add" to track) 
+
+最初の内は、何か作業をしたらこのコマンドを必ず叩いてみましょう。
+意味が分からなくても必ずやりましょう！その内分かる様になります。
+
+■まずはステージングしよう！
+$ git add prease_edit.txt
+$ git status
+
+<出力結果例>
+# On branch master // あなたのいるブランチ
+# Changes to be committed: // コミットされようとしている変更 →つまり、ステージングした変更
+#   (use "git reset HEAD <file>..." to unstage) // ステージングを取り消したかったらこうしろ、と仰っている
+#
+#	new file:   prease_edit.txt // 今回は私が新しいファイルを追加したので"new file"となっている。
+#                                   // 編集しただけなら"modiffied"となっているハズ。
+#
+# Untracked files: // まだステージングされていない変更点 
+#   (use "git add <file>..." to include in what will be committed)
+#
+#	memo.txt 
+
+■いよいよコミットですよ！
+$ git commit -m "my first commit"
+$ git status
+
+<出力結果例>
+[master 754d1a5] my first commit  // "master"というブランチでSHA-1ハッシュ値の頭7桁が"754d1a5"。コミットを一意に識別する為の値。
+ 1 files changed, 20 insertions(+), 0 deletions(-) // 1つのファイルの変更、20行の追加、0行の削除がコミットされた。
+ create mode 100644 prease_edit.txt 
+
+■コミットした時はこれで更に確認してみよう！
+$ git log
+
+<出力結果例>
+commit 754d1a50a884aef61e57935acc2f2c8f08dfe7f9 // SHA-1ハッシュ値。本当は40桁もあるけど、覚えらんないし7桁でも十分ユニークらしいぉ。
+Author: flada-auxv <aseknock@gmail.com> // 個人情報(えっ)
+Date:   Fri Jul 13 00:40:42 2012 +0900 
+
+    my first commit // -m "メッセージ"とした物が入ってきます。
+
+よく考えずに"my first commit"とか気の抜けた事を言ってますが、本来はこのコミットメッセージというものは非常に大事になってきます。
+例えば、この変更をみんなでGitHubにpushするとしたら、恐らくコンフリクト(※)しまくり阿鼻叫喚地獄絵図が展開されるでしょうが、そこで
+手動マージ(※)をする際に有力な手がかりとなり得るのです。
+ただ、コミットメッセージ自体に"main.java line:6 fixed typo"とかまで詳細に書いてたらちょっとキリがないので、どんな変更をしたのか
+簡潔に分かりやすく伝えるべきでしょう。
+そもそも加えた変更自体は"git diff"といった様なコマンドで、追う事ができますので。
+
+※コンフリクト：他の人との変更が競合してしまう事。Gitは頭が良いので、だいたいの場合は自動でマージしますが、楽観的ロックという
+考え方のもと、同じファイルを複数人で編集すればこういった自体が起こるのは仕方ない。ただ、日常の業務では頻繁にある事ではないと言える。
+同じ作業を何人もでやりませんよね？
+
+※マージ：変更を取り込む事。
+
+
+
+

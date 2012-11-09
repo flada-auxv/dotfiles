@@ -1,0 +1,63 @@
+# prefixの変更
+unbind-key C-b
+set-option -g prefix C-t
+bind-key C-t send-prefix
+
+# tmux-powerline
+set-option -g status on
+set-option -g status-interval 2
+set-option -g status-utf8 on
+set-option -g status-justify "centre"
+set-option -g status-left-length 60
+set-option -g status-right-length 300
+set-option -g status-left "#(~/dotfiles/usr/local/src/tmux-powerline/status-left.sh)"
+set-option -g status-right "#(~/dotfiles/usr/local/src/tmux-powerline/status-right.sh)"
+bind [ run '~/dotfiles/tmux-powerline/mute_statusbar.sh left'      # Mute left statusbar.
+bind ] run '~/dotfiles/usr/local/src/tmux-powerline/mute_statusbar.sh right'     # Mute right statusbar.
+
+# ウィンドウの最初の番号を指定、デフォルトだと0から
+set-option -g base-index 1
+# C-gをキャンセルコマンドとして利用する
+unbind-key C-g
+# 256色表示
+set -g default-terminal "screen-256color"
+# tmuxの設定を再読み込み
+unbind r
+bind C-r source-file ~/.tmux.conf ; display-message " tmux Reloaded!!"
+# コピーモードでemacs風の操作(終了時はC-x c)
+set-window-option -g mode-key emacs
+# 必要ない？
+set-window-option -g utf8 on
+# ディスプレイ番号を表示 表示された番号を入力して移動
+bind C-i display-panes
+set display-panes-time 10000
+
+# clock-mode入ってしまったら C-? qで戻ってくる
+# clock-modeはunbindしちゃいましょ
+unbind t
+unbind h 
+
+set repeat-time 1000
+bind C-q confirm-before "kill-window"
+bind -r C-c new-window
+bind C-p previous-window
+bind C-n next-window
+bind C-t confirm-before "last-window"
+bind -r C-o rotate-window
+bind q confirm-before "kill-pane"
+bind -r h select-pane -L
+bind -r j select-pane -D
+bind -r k select-pane -U
+bind -r l select-pane -R
+bind -r Left resize-pane -L 5
+bind -r Down resize-pane -D 5
+bind -r Up resize-pane -U 5
+bind -r Right resize-pane -R 5 
+
+bind s split-window -v
+bind v split-window -h
+bind C-w choose-window
+
+bind C-d confirm-before "detach-client"
+bind C-[ copy-mode
+bind C-] paste-buffer

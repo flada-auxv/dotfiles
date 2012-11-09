@@ -1,0 +1,45 @@
+
+/*
+ * GET home page.
+ */
+
+exports.index = function(req, res){
+    res.render('index', { title: 'Express' });
+};
+
+exports.sample1 = function(req, res) {
+    var id = req.param('id');
+    res.render('foo', {
+	title: 'やっほー!!',
+	var1: 'Dog',
+	var2: 'Cat',
+	var3: req.param('id')
+    });
+};
+
+// show data and form
+exports.showMongo = function (req, res) {
+    var mongo = require('mongodb');
+    var client = new mongo.Db('test', new mongo.Server('127.0.0.1',27017));
+    client.open(function (err, client) {
+	if (err) {
+	    console.log(err);
+	} else {
+	    console.log('connected to mongodb');
+	}
+    });
+    client.collection('test', function (err, collection) {
+	if (err) {
+	    throw err;
+	}
+	collection.find().toArray(function (err, results) {
+	    if (err){
+		throw err;
+	    }
+	    res.render('mongo', {
+		title: 'Mongo Example',
+		list: results
+	    });
+	});
+    });
+};

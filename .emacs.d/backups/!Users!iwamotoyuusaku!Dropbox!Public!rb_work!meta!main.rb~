@@ -1,0 +1,14 @@
+# -*- coding: utf-8 -*-
+def top_level
+  puts self
+  puts "おお"
+end
+hoge = Object.instance_methods.grep /^t.*/
+piyo = methods.grep /^t.*/
+top_level
+puts "hoge", hoge
+puts ""
+puts "piyo", piyo
+
+mainにはアクセスできない？
+

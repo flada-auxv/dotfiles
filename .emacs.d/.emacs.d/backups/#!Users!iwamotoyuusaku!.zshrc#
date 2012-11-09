@@ -1,0 +1,20 @@
+export LANG=ja_JP.UTF-8
+export EDITOR=/Applications/Emacs.app
+# homebrewを優先
+export PATH=~/bin:/usr/local/bin:$PATH
+
+# emacsのエイリアス デーモン起動させておく emacs --daemon
+alias EMACS = '/Applications/Emacs.app/Contents/MacOS/Emacs --daemon'
+alias enw='emacsclient -
+alias e='emacsclient -t'
+alias kille="emacsclient -e '(kill-emacs)'"
+
+#rbenv
+eval "$(rbenv init -)"
+
+#rbenv for gems
+export PATH="$HOME/.rbenv/shims:$PATH"
+
+#補完機能
+autoload -U compinit
+compinit

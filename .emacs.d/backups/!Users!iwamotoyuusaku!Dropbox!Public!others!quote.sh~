@@ -1,0 +1,10 @@
+#!/bin/sh
+echo -n "Please enter the name: "
+read answer
+
+if test $answer = yuusaku
+then 
+  echo "正解"
+else
+  echo "間違い"
+fi

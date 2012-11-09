@@ -1,0 +1,3 @@
+class Inside < ActiveRecord::Base
+  attr_accessible :date, :ed, :holiday_type, :note, :op, :rest_1, :rest_2, :rest_late_night, :shift, :train_delay
+end

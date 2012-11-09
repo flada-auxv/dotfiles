@@ -1,0 +1,18 @@
+■まずはclneしてみよう！
+$ git clone https://github.com/seraku-learning-room/Git_HandsOn.git
+
+// cloneせずに自分でリポジトリを作成するのであれば、リポジトリの初期化が必要
+// $ mkdir リポジトリ名
+// $ git init
+// これで.gitファイル等が作成されgitによるバージョン管理が始まる！！
+// cloneしてきた場合はすでにこのセッティングが出来ているので必要ない。
+
+■cloneしたローカルリポジトリに移動
+$ ls -a            // -aは"."から始まる隠しフォルダも見えるようになる  
+$ cd Git_HandsOn 
+
+■適当に編集してコミットしよう！
+
+
+
+

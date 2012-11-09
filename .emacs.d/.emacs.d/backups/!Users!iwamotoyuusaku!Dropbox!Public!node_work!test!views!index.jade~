@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  h1= Express Demo!!
+  h2 jade template
+  div
+    p
+      span The variables are "
+        strong=var1
+      span '' nad ''
+        strong=var2
+      span ''.
+      span Input variable is ''
+        strong=var3
+      span ''.

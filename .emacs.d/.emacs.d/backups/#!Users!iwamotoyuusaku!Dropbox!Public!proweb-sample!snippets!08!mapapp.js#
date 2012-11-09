@@ -1,0 +1,189 @@
+MAPAPP = (function() {
+	// 定数を初期化する
+	var DEFAULT_ZOOM = 8;
+
+	// 変数を初期化する
+	var map = null,
+		mainScreen = true,
+		markers = [],
+		markerContent = {};
+
+	function activateMarker(marker) {
+		// マーカーを反復処理して非アクティブイメージを設定する
+		for (var ii = 0; ii < markers.length; ii++) {
+			markers[ii].setIcon('img/pin-inactive.png');
+		} // for
+
+		// 指定されたマーカーのアイコンをアクティブイメージにする
+		marker.setIcon('img/pin-active.png');
+
+		// jQueryを使ってnavbarタイトルを書き換える
+		$('#marker-nav .marker-title')
+			.html(marker.getTitle())
+			.removeClass('has-detail')
+			.unbind('click');
+	
+		// contentが与えられたら、表示を「リンク風」に変えるために、
+		// has-detailクラスを追加し、クリックイベントハンドラをアタッチする
+		var content = markerContent[marker.getTitle()];
+		if (content) {
+			$('#marker-nav .marker-title')
+				.addClass('has-detail')
+				.click(function() {
+					$('#marker-detail .content').html(content);
+					showScreen('marker-detail');
+				});
+		} // if
+
+		updateMarkerNav(getMarkerIndex(marker));
+	} // activateMarker
+
+	function addMarker(position, title, content) {
+		// 新しいマーカーを作り、地図上に表示する
+		var marker = new google.maps.Marker({
+			position: position,
+			map: map,
+			title: title,
+			icon: 'img/pin-inactive.png'
+		});
+
+		// マーカーコンテンツを保存する
+		markerContent[title] = content;
+
+		// マーカーをマーカー配列に追加する
+		markers.push(marker);
+
+		// 作成したマーカーに対するタッチクリックイベントをキャプチャする
+		google.maps.event.addListener(marker, 'click', function() {
+			// jQueryを使ってナビゲーションバータイトルを更新する
+			// $('#marker-nav .marker-title').html(marker.getTitle());
+			activateMarker(marker);
+		});
+	} // addMarker
+
+	function getMarkerIndex(marker) {
+		for (var ii = 0; ii < markers.length; ii++) {
+			if (markers[ii] === marker) {
+				return ii;
+			} // if
+		} // for
+
+		return -1;
+	} // getMarkerIndex
+
+	function initScreen() {
+		// 位置ハッシュの変化を監視する
+		setInterval(watchHash, 10);
+
+		// 次にすべてのクローズボタンにクリックハンドラをアタッチする
+		$('button.close').click(showScreen);
+	} // initScreen
+
+	function showScreen(screenId) {
+		mainScreen = typeof screenId !== 'string';
+		if(typeof screenId === 'string') {
+			$('#' + screenId).css('left', '0px');
+
+			// 位置ハッシュをマーカー詳細に更新する
+			window.location.hash = screenId;
+		}
+		else {
+			$('div.child-screen').css('left', '100%');
+			window.location.hash = '';
+		} // if..else
+
+		scrollTo(0, 1);
+	} // showScreen
+
+
+	function sortMarkers() {
+		// 左から右、上から下にマーカーをソートする
+		// 緯度は南に行くほど小さくなることに注意
+		markers.sort(function(markerA, markerB) {
+			// マーカーAとマーカーBの位置を取り出す
+			var posA = markerA.getPosition(),
+				posB = markerB.getPosition();
+			var result = posB.lat() - posA.lat();
+			if (result === 0) {
+				result = posA.lng() - posB.lng();
+			} // if
+			return result;
+		});
+	} // sortMarkers
+
+	function updateMarkerNav(markerIndex) {
+		// marker-nav要素を探す
+		var markerNav = $('#marker-nav');
+
+		// イメージを無効状態にリセットし、クリックイベントのバインドを解除する
+		markerNav.find('img')
+			.addClass('disabled')
+			.unbind('click');
+
+		// 配列の末尾にまだマーカーがある場合には、マーカー状態を更新する
+		if (markerIndex < markers.length - 1) {
+			markerNav.find('img.right')
+				.removeClass('disabled')
+				.click(function() {
+					activateMarker(markers[markerIndex + 1]);
+				});
+		} // if
+
+		if (markerIndex > 0) {
+			markerNav.find('img.left')
+				.removeClass('disabled')
+				.click(function() {
+					activateMarker(markers[markerIndex - 1]);
+				});
+		} // if
+	} // updateMarkerNav
+
+	function watchHash() {
+		// この関数は位置ハッシュがリセットされて空になっているかを監視する
+		if((! mainScreen) && (window.location.hash === '')) {
+			showScreen();
+		} // if
+	} // watchHash
+
+	var module = {
+		addMarker: addMarker,
+
+		init: function(position, zoomLevel) {
+			// 必須オプションを定義する
+			var myOptions = {
+				zoom: zoomLevel ? zoomLevel : DEFAULT_ZOOM,
+				center: position,
+				mapTypeControl: false,
+				streetViewControl: false,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			};
+
+			// 地図を初期化する
+			map = new google.maps.Map(
+				document.getElementById("map_canvas"),
+				myOptions);
+
+			// 画面を初期化する
+			initScreen();
+		},
+
+		updateDisplay: function() {
+			// マーカーをソートする
+			sortMarkers();
+
+			// 最初のマーカーを取得する
+			var firstMarker = markers.length > 0 ? markers[0] : null;
+
+			// リスト内に少なくとも1つのマーカーがあるなら、
+			// 最初のマーカーを初期化する
+//			if (markers.length > 0) {
+//				activateMarker(markers[0]);
+//			} // if
+			if (firstMarker) {
+				activateMarker(firstMarker);
+			} // if
+		}
+	};
+
+	return module;
+})();

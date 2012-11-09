@@ -1,0 +1,13 @@
+#!/usr/bin/ruby
+
+res = "{"
+(1..60).each do |i|
+  if i == 60
+    res << %Q!"#{i}" => #{i}!
+  else
+    res << %Q!"#{i}" => #{i}, !
+  end
+end
+res << "}"
+puts res
+

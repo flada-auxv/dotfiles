@@ -1,0 +1,67 @@
+# -*- coding: utf-8 -*-
+class WorksController < ApplicationController
+  before_filter :load_user
+  before_filter :format_params, only: ["create", "update"]
+
+  # GET /works
+  def index
+    @works = @user.works.by_month(params[:month] || Time.now)
+    @shifts = @user.shifts.where(indicate: true)
+  end
+  
+  # GET /works/new
+  def new
+    @work = @user.works.build
+    @detail = @work.send("build_#{params[:detail]}")
+  end
+
+  # /works
+  def create
+    @work = Work.where(date: select_date).first || @user.works.build(params[:work])
+    @detail = @work.send("build_#{params[:detail]}")
+    @detail.attributes = params[params[:detail]]
+    if @detail.save && @work.save 
+      redirect_to(:works, notice: "登録が完了しました！")
+    else
+      render action: "new"
+    end
+  end
+
+  # /works/:id/edit 
+ def edit
+    @work = @user.works.find(params[:id])
+    @detail = @work.send(params[:detail])
+  end
+
+  # /works/:id
+  def update
+    @work = @user.works.find(params[:id])
+    @detail = @work.send(params[:detail])
+    @detail.attributes = params[params[:detail]]
+    if @detail.save && @work.update_attributes(params[:work])
+      redirect_to(:works, notice: "更新が完了しました！")
+    else
+      render action: "edit"
+    end
+  end
+
+  # /works/:id
+  def destroy
+    @work = @user.works.find(params[:id])
+    @work.destroy
+    redirect_to :works
+  end
+
+
+  private
+  # フォームで入力された常駐・内勤モデルの詳細データ(いずれか)を返する。
+  # { "outside" => { "shift" => "1", "holiday" => "有休"}}の様な形式
+  def work_detail_from_params
+    return :outside, params[:outside] if params[:outside] 
+    return :inside, params[:inside] if params[:inside]
+  end
+  
+  def select_date
+    Date.new(params[:work]["date(1i)"].to_i, params[:work]["date(2i)"].to_i, params[:work]["date(3i)"].to_i)
+  end
+end

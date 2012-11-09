@@ -1,0 +1,5 @@
+class Work < ActiveRecord::Base
+  belongs_to :inside
+  belongs_to :outside
+  attr_accessible :date
+end

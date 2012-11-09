@@ -1,0 +1,13 @@
+[user]
+	name = flada-auxv
+	email = aseknock@gmail.com
+[core]
+	editor = emacsclient -t -a=\\\"\\\"
+[color]
+	ui = auto
+[gui]
+	recentrepo = /Users/iwamotoyuusaku/projects/dotfiles
+[alias]
+	st = status -s -b
+	ci = commit
+	

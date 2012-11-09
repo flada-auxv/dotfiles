@@ -1,0 +1,77 @@
+#!/Users/iwamotoyuusaku/.rbenv/versions/1.9.3-p194/bin/ruby
+# -*- coding: utf-8 -*-
+require 'rubygems'
+require 'spreadsheet'
+
+# 1日   n = 15 
+# 2日   n = 16 ..and so on
+
+## 客先常駐 ##
+# シフト   n,2   string
+# 休暇種別 n,3   string
+# 始業     n,4   string
+# 終業     n,5   string
+# 休憩1    n,6   time
+# 休憩2    n,7   time
+# 休憩深夜 n,8   time
+# 電車遅延 n,11  string
+# 備考     n,12  text
+
+## 自社勤務 ##
+# 区分     n,14  integer
+# 始業     n,15  time
+# 終業     n,16  time
+# 休憩     n,17  time
+# 備考     n,19  text
+key = {
+  inside: {
+    date: 0,
+    weekday: 1,
+    shift: 2,
+    holiday_type: 3,
+    op: 4,
+    ed: 5,
+    rest_1: 6,
+    rest_2: 7,
+    rest_late_night: 8,
+    train_delay: 11,
+    note: 12
+  },
+  outside: {
+    classification: 14,
+    op: 15,
+    ed: 16,
+    rest: 17,
+    note: 19
+  }
+}
+
+stationed = key[:stationed].to_enum(:each_value)
+their = key[:their].to_enum(:each_value)
+
+Spreadsheet.client_encoding = 'UTF-8'
+
+book = Spreadsheet.open("template.xls")
+sheet = book.worksheet('sheet1')
+
+test_data = {
+  date: "1",  # string
+  weekday: "月", # string
+  shift: "A", # string
+  holiday_type: "公休", # string
+  op: "09:00",  # time
+  ed: "23:00",  # time
+  rest_1: "01:00", # time
+  rest_2: "01:00", # time
+  rest_late_night: "01:00", # time
+  train_delay: "x", # string 
+  note: "テストテストテスト" # text
+}
+
+
+test_data.each_value  do |val|
+  sheet[15, stationed.next] = val
+end
+
+book.write("excels/test_#{Time.now.to_i}.xls")
+

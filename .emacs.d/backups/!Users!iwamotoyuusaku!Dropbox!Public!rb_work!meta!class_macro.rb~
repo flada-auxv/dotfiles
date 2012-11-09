@@ -1,0 +1,27 @@
+class Book
+
+  def title
+    puts "title"
+  end
+
+  def subtitle
+    puts "subtitle"
+  end
+
+  def lend_to user
+    puts "Lendint to #{user}"
+  end
+  
+  def self.deprecate old_method, new_method
+    define_method old_method do |*args, &block|
+      warn "Warning: #{old_method}() is deprecated. User #{new_method}()."
+      send new_method, *args, &block
+    end
+  end
+end
+  
+deprecate :GetTitle, :title
+
+b = Book.new
+b.GetTitle "Bill"  
+

@@ -1,0 +1,32 @@
+# -*- coding: utf-8 -*-
+@@class_variable ="ににに" # ここで(クラスの外)で代入していないと一番したの出力はエラーとなる。
+
+class MyClass
+  @my_var = "にょ〜ん"
+  puts @my_var, self
+
+  @@class_variable = "ぬぬぬ"　# 最初に代入したスコープで生きると言う事かな？？
+
+  def self.read # クラスのスコープですよ！！
+    p @my_var, @my_var.object_id
+    @you = "これは？" # クラスインスタンス変数という。
+  end
+
+  def write
+    @my_var = "うわがき？"  # 上書きした訳では無い。二つ別々のオブジェクトの変数にアクセスしているだけ。
+  end
+
+  def read
+    p @my_var, @my_var.object_id
+    p @you  # 見えない/selfはクラスを指している
+  end
+end
+
+obj = MyClass.new
+obj.write
+obj.read
+MyClass.read
+
+puts @@class_variable
+
+

@@ -1,0 +1,88 @@
+<h1>TimeCheat！</h1>
+<%= render 'shifts/index', shfits: @shifts %>
+<br />
+<br />
+<br />
+<%= form_tag({ action: "new"}, { method: :get, id: "jump" }) do %>
+  <%= select_tag("detail", options_for_select({ '日報を入力する' => :default, '常駐' => :outside, '内勤' => :inside }, :default))  %>
+<% end %>
+<br />
+<% Work.all.map {|w| w.date.beginning_of_month}.uniq.sort.each do |m| -%>
+<%= link_to_unless_current m.month, month: m.to_s.sub!(%r[\-\d{2}$],"") %>&nbsp;
+<% end %>
+
+    
+
+<table>
+  <tr>
+    <th>日付</th>
+    <th>曜日</th>
+    <th>シフト</th>
+    <th>休暇種別</th>
+    <th>始業</th>
+    <th>終業</th>
+    <th>休憩<br />(1)</th>
+    <th>休憩<br />(2)</th>
+    <th>休憩<br />(深夜)</th>
+    <th>実働時間</th>
+    <th>実働時間<br />(深夜)</th>
+    <th>電車遅延</th>
+    <th>備考</th>
+    <th>区分</th>
+    <th>始業</th>
+    <th>終業</th>
+    <th>休憩</th>
+    <th>実働時間</th>
+    <th>備考</th>
+    <th>総労働<br />時間</th>
+    <th>深夜<br />(内数)</th>
+    <th>有休</th>
+    <th>欠勤控除</th>
+    <th>遅刻控除</th>
+    <th>早退控除</th>
+    <th></th>
+    <th></th>
+  </tr>
+  <% @works.each do |work| %>
+    <% outside = work.outside %>
+    <% inside = work.inside %>
+    <tr>
+      <td><%= work.date.strftime("%m月%d日") %></td>
+      <td><%= work.date.strftime("%a") %></td>
+      <td><%= outside.shift if outside %></td>
+      <td><%= work.holiday %></td>
+      <% if outside %>
+	<td><%= format_time(outside.op) %></td>
+	<td><%= format_time(outside.ed) %></td>
+	<td><%= format_time(outside.rest_normal) %></td>
+	<td><%= format_time(outside.rest_overtime) %></td>
+	<td><%= format_time(outside.rest_late_night) %></td>
+	<td><%= format_time(outside.actual) %></td>
+	<td><%= format_time(outside.actual_late_night) %></td>
+      <% else %>
+	<% 7.times do %><td></td><% end %>
+      <% end %>
+      <td><%= work.delay %></td>
+      <td><%= outside.note if outside %></td>
+      <% if inside %>
+	<td><%= format_time(inside.classification) %></td>
+	<td><%= format_time(inside.op) %></td>
+	<td><%= format_time(inside.ed) %></td>
+	<td><%= format_time(inside.rest) %></td>
+	<td><%= format_time(inside.actual) %></td>
+	<td><%= inside.note %></td>
+      <% else %>
+	<% 6.times do %><td></td><% end %>
+      <% end %>
+      <td><%= format_time(work.total) %></td>
+      <td><%= format_time(outside.actual_late_night) if outside %></td>
+      <td><%= format_time(work.paid_holiday_hour) %></td>
+      <td><%= format_time(work.absence_deduction) %></td>
+      <td><%= format_time(work.late_deduction) %></td>
+      <td><%= format_time(work.leave_early_deduction) %></td>
+      <td><%= link_to_if(outside, "編集(常駐)", edit_work_path(work, detail: :outside)) %></td>
+      <td><%= link_to_if(inside, "編集(内勤)", edit_work_path(work, detail: :inside)) %></td>
+      <td><%= link_to "削除", work, confirm: "本当に削除しますか？", method: :delete %></td>
+    </tr>
+  <% end %>
+</table>

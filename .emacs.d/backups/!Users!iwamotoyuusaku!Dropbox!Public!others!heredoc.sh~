@@ -1,0 +1,11 @@
+#!/bin/sh
+
+cat << EOF > heredoc.c
+#inclede <stdio.h>
+main() {
+printf("This is a Here-Documents Sample.\n");
+}
+EOF
+
+gcc -o heredoc heredoc.c
+./heredoc

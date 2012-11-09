@@ -1,0 +1,5 @@
+# -*- coding: utf-8 -*-
+
+num = ARGV[0}.to_i
+mersenne = (2 ** num) - 1  # メルセンヌ数 = 2のべき乗-1
+puts 2 ** (num - 1) * mersenne

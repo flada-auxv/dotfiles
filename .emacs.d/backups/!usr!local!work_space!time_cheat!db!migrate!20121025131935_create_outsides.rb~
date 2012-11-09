@@ -1,0 +1,8 @@
+class CreateOutsides < ActiveRecord::Migration
+  def change
+    create_table :outsides do |t|
+
+      t.timestamps
+    end
+  end
+end

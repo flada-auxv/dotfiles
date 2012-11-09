@@ -1,0 +1,8 @@
+#!/bin/sh
+
+tmp=/tmp/$$
+BASWQUERY="?q=%23HASH_TAG" # %23は"#"
+QUERY="${BASWQUERY}"
+for ((n=1; n<=3; n++)) ; do
+    curl "http://search.twitter.com/search.json${QUERY}"  |
+    sed '$a\'

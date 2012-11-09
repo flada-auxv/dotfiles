@@ -1,0 +1,16 @@
+# -*- coding: utf-8 -*-
+class Hoge
+end
+begin
+  obj = Hoge.new
+  obj.non
+
+rescue => e
+  Hoge.class_eval do
+    def non
+      puts "あるよ"
+    end
+  end
+  p e.backtrace
+  obj.non
+end

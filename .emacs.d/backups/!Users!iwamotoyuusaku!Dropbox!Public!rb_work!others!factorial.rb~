@@ -1,0 +1,15 @@
+# -*- coding: utf-8 -*-
+class Hoge
+  def factorial(x)
+    return 1 if x == 0
+    product = 1
+    (1..x).each do |i|
+      product *= i
+    end
+    puts product
+  end
+end
+
+obj = Hoge.new
+p ARGV #デバッグ
+obj.factorial(ARGV[0].to_i)

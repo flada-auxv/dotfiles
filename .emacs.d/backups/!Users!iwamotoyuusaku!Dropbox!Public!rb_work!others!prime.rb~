@@ -1,0 +1,19 @@
+# -*- coding: utf-8 -*-
+
+# 実行時に与えられた数値までの素数のリストを返す
+# エラトステネスの篩と言われる手法
+
+known_prime = 2  # 既知の素数
+max = ARGV[0].to_i  
+arr = (known_prime..max).to_a  
+cache = []  # 倍数を求める元の素数も削除してしまうので一時保存
+
+while known_prime <= Math::sqrt(max)
+  cache.push known_prime
+  arr.delete_if do |i|
+    i % known_prime == 0
+  end
+  known_prime = arr[0]
+end
+
+p cache + arr.compact

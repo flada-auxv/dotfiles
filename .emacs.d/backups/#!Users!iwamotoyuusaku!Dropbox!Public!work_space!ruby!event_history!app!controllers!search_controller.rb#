@@ -1,0 +1,49 @@
+# -*- coding: utf-8 -*-
+class SearchController < ApplicationController
+  %w(open-uri).map {|gem| require gem}
+
+  def index
+  end
+
+  def show
+    twitter_id = sanitize_for_web_api(params[:id])
+
+    if twitter_id.empty?
+      return redirect_to({:action => 'index'},
+                          :alert => 'TwitterのIDを入力してください。')
+    end
+
+    @twitter_id = twitter_id
+    @services = [{:name => 'ATND',:events => atnd(twitter_id)},
+                 {:name => 'Zusaar',:events => zusaar(twitter_id)},
+                 {:name => 'connpass',:events => connpass(twitter_id)}]
+    @count = @services.map {|service| service[:events].count}.inject {|sum,event| sum + event}
+    
+    end
+  end
+
+  private
+
+  def sanitize_for_web_api(query)
+    query.sub(/[?&].*/,'').sub(/^[\s\t　]*$/,'')
+  end
+
+  def url_to_json(url)
+    json = URI(url).read
+    all_data = JSON.parse(json)
+  end
+
+  services = ['atnd','zusaar','connpass']
+  services.each do |service|
+    define_method(service) do |twitter_id|
+      url = "http://api.atnd.org/events/?twitter_id=#{twitter_id}&format=json&count=100" if service == 'atnd'
+      url = "http://www.zusaar.com/api/event/?nickname=#{twitter_id}&count=100" if service == 'zusaar'
+      url = "http://connpass.com/api/v1/event/?nickname=#{twitter_id}&count=100" if service == 'connpass'
+      all_data = url_to_json(url)
+      return all_data['event'] if service == 'zusaar'
+      all_data['events']
+    end
+  end
+
+
+end

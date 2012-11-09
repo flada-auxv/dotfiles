@@ -1,0 +1,36 @@
+git入れなきゃって意気込むも入っていた。
+さくらVPSはだいたい必要になるもの揃っているみたい。
+
+brew install tmux
+
+C-bのプレフィクスをC-tに変更
+~/.tmux.confを作成して以下を書き込む
+set-option -g prefix C-t
+unbind-key C-b
+bind-key C-t send-prefix
+
+manページ
+https://bytebucket.org/ns9tks/tmux-ja/wiki/tmux-ja.html
+
+とりあえず終了するのに困ったw
+C-t &でカレントウィンドウを終了。ウィンドウ全てが無くなればセッションも終了という仕組み。
+tmuxの仕組みについて
+http://d.hatena.ne.jp/eco31/20101126/1290725841
+
+?   キーバインド一覧　"q"で終了
+&   カレントウィンドウを終了
+c   ウィンドウ新規作成
+n   次のウィンドウ
+p   前のウィンドウ
+l   最後に操作したウィンドウ
+1-9 対応するウィンドウ
+
+"   上下ペインに分割
+%   左右ペインに分割
+!   ペイン分割解除
+;   最後に操作したペイン
+o   ペインを移る
+x   カレントペインを終了
+
+
+

@@ -1,0 +1,3 @@
+class Fixnum
+  def to_t
+    

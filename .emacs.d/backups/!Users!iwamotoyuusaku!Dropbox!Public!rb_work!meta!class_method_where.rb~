@@ -1,0 +1,13 @@
+module MyModule
+  def my_method
+    "hello"
+  end
+end
+
+obj = Object.new
+
+class MyClass
+  include MyModule
+end
+
+MyClass.my_method
