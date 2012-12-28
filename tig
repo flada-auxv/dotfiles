@@ -1,0 +1,4 @@
+# browse commit on github
+bind main b !@hub browse -- commit/%(commit)
+bind diff b !@hub browse -- commit/%(commit)
+bind log  b !@hub browse -- commit/%(commit)
