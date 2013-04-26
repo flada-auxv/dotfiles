@@ -1,8 +1,0 @@
-class CreateInsides < ActiveRecord::Migration
-  def change
-    create_table :insides do |t|
-
-      t.timestamps
-    end
-  end
-end

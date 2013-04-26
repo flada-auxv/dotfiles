@@ -1,3 +1,0 @@
-class Outside < ActiveRecord::Base
-  attr_accessible :classification, :date, :ed, :note, :op, :rest
-end

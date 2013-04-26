@@ -1,7 +1,0 @@
-#!/usr/bin/perl -w
-use strict;
-use LWP::Simple;
-use Encode;
-use encoding 'utf-8';
-binmode(STDERR, ':raw :encoding(utf-8)');
-

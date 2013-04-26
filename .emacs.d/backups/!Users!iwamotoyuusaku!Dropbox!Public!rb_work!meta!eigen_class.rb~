@@ -1,6 +1,0 @@
-
-eigenclass = class << obj
-               self
-end
-
-puts eigenclass.class

@@ -1,8 +1,0 @@
-# -*- coding: utf-8 -*-
-event 'イベントが発生する事' do 
-  true
-end
-
-event 'イベントが発生しない事' do
-  false
-end
