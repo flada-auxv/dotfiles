@@ -21,6 +21,9 @@ setw -g utf8 on
 bind i display-panes
 set display-panes-time 10000
 
+set-window-option -g mode-mouse on
+set -g terminal-overrides 'xterm*:smcup@:rmcup@'
+
 # clock-mode入ってしまったら C-? qで戻ってくる
 # clock-modeはunbindしちゃいましょ
 unbind t
@@ -58,12 +61,10 @@ set -g status-interval 2
 set -g status-utf8 on
 set -g status-justify "centre"
 set -g status-left-length 60
-set -g status-right-length 300
-set -g status-left "#(~/dotfiles/tmux-powerline/status-left.sh)"
-set -g status-right "#(~/dotfiles/tmux-powerline/status-right.sh)"
-bind [ run '~/dotfiles/tmux-powerline/mute_statusbar.sh left'      # Mute left statusbar.
-bind ] run '~/dotfiles/tmux-powerline/mute_statusbar.sh right'     # Mute right statusbar.
+set -g status-right-length 90
+set-option -g status-left "#(~/dotfiles/tmux-powerline/powerline.sh left)"
+set-option -g status-right "#(~/dotfiles/tmux-powerline/powerline.sh right)"
+bind [ run '~/dotfiles/tmux-powerline/mute_powerline.sh left'      # Mute left statusbar.
+bind ] run '~/dotfiles/tmux-powerline/mute_powerline.sh right'     # Mute right statusbar.
 
-# tmux-colors-solarized
-# dark light 256 の3種類
-source ~/dotfiles/tmux-colors-solarized/tmuxcolors-dark.conf
+
