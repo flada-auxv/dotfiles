@@ -2,9 +2,6 @@ export LANG=ja_JP.UTF-8
 export EDITOR=emacsclient
 export SSL_CERT_FILE=/usr/local/etc/cacert.pem
 
-# homebrewを優先
-export PATH=~/bin:/usr/local/bin:$PATH:$HOME/bin
-
 # rbenv
 path=($HOME/.rbenv/bin(N) $path)
 eval "$(rbenv init -)"
@@ -51,11 +48,9 @@ SPROMPT=$tmp_sprompt  # スペル訂正用プロンプト
   PROMPT="%{${fg[white]}%}${HOST%%.*} ${PROMPT}"
 ;
 
-export LANG=ja_JP.UTF-8
-
 HISTFILE=~/.zsh_history
-HISTSIZE=1000000
-SAVEHIST=1000000
+HISTSIZE=100000
+SAVEHIST=100000
 setopt hist_ignore_dups # ignore duplication command history list
 setopt share_history 
 
