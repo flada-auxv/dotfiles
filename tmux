@@ -54,17 +54,3 @@ bind C-w choose-window
 bind d confirm-before "detach-client"
 bind C-[ copy-mode
 bind C-] paste-buffer
-
-# tmux-powerline
-set -g status on
-set -g status-interval 2
-set -g status-utf8 on
-set -g status-justify "centre"
-set -g status-left-length 60
-set -g status-right-length 90
-set-option -g status-left "#(~/dotfiles/tmux-powerline/powerline.sh left)"
-set-option -g status-right "#(~/dotfiles/tmux-powerline/powerline.sh right)"
-bind [ run '~/dotfiles/tmux-powerline/mute_powerline.sh left'      # Mute left statusbar.
-bind ] run '~/dotfiles/tmux-powerline/mute_powerline.sh right'     # Mute right statusbar.
-
-
