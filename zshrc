@@ -15,6 +15,9 @@ else
     `emacs --daemon`
 fi
 
+# エイリアス
+source ./zsh_aliases
+
 # 補完の設定
 autoload -U compinit
 compinit
@@ -61,23 +64,6 @@ zle -N history-beginning-search-forward-end history-search-end
 bindkey "^P" history-beginning-search-backward-end
 bindkey "^N" history-beginning-search-forward-end
 
-alias ls="ls -p"
-alias la="ls -aG"
-alias ll="ls -lG"
-alias rr="rake routes"
-alias tmux\ ls="tmux list-sessions"
-alias b="bundle"
-alias be="bundle exec"
-alias r="rails"
-alias g="git"
-alias fetch="git fetch"
-alias pull="git pull"
-alias push="git push"
-alias clone="git clone"
-alias vu="vi"
-alias vo="vi"
-alias v="vi"
-alias coverage="open ./coverage/index.html"
 
 #PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#I_#P") "$PWD")'
 # tmux自動起動
