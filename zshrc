@@ -9,11 +9,8 @@ export PATH="/usr/local/bin:/usr/local/sbin:$HOME/bin:$PATH"
 path=($HOME/.rbenv/bin(N) $path)
 eval "$(rbenv init -)"
 
-alias e='emacsclient -t'
-alias kille="emacsclient -e '(kill-emacs)'"
-
 # エイリアス
-source ./.zsh_aliases
+source $HOME/dotfiles/zsh_aliases
 
 # 補完の設定
 autoload -U compinit

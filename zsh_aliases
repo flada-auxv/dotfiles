@@ -21,3 +21,4 @@ alias v="vi"
 alias e='emacsclient -t'
 alias kille="emacsclient -e '(kill-emacs)'"
 
+alias s="subl"
