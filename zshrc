@@ -2,7 +2,8 @@ export LANG=ja_JP.UTF-8
 export EDITOR=emacsclient
 
 # HomeBrewコマンドのインストール先("/usr/local/bin or sbin")を優先する
-export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+# ついでにホームディレクトリにもbinを
+export PATH="/usr/local/bin:/usr/local/sbin:$HOME/bin:$PATH"
 
 # rbenv
 path=($HOME/.rbenv/bin(N) $path)
