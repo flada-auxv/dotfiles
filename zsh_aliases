@@ -1,15 +1,23 @@
 alias ls="ls -p"
 alias la="ls -aG"
 alias ll="ls -lG"
+
 alias tmux\ ls="tmux list-sessions"
+
 alias b="bundle"
 alias be="bundle exec"
 alias r="rails"
+
 alias g="git"
 alias clone="git clone"
 alias fetch="git fetch"
 alias pull="git pull"
 alias push="git push"
+
 alias vu="vi"
 alias vo="vi"
 alias v="vi"
+
+alias e='emacsclient -t'
+alias kille="emacsclient -e '(kill-emacs)'"
+

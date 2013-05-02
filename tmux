@@ -6,23 +6,30 @@ bind-key C-t send-prefix
 # ウィンドウ・ペインの最初の番号を指定を1に。デフォルトだと0から
 set -g base-index 1
 set -g pane-base-index 1
+
 # C-gをキャンセルコマンドとして利用する
 unbind C-g
+
 # 256色表示
 set -g default-terminal "screen-256color"
+
 # tmuxの設定を再読み込み
-unbind r
-bind C-r source-file ~/.tmux.conf ; display-message " tmux Reloaded!!"
+# unbind r
+# bind C-r source-file ~/.tmux.conf ; display-message " tmux Reloaded!!"
+
 # コピーモードでemacs風の操作(終了時はC-x c)
 setw -g mode-key emacs
+
 # 必要ない？
 setw -g utf8 on
+
 # ディスプレイ番号を表示 表示された番号を入力して移動
 bind i display-panes
 set display-panes-time 10000
 
-set-window-option -g mode-mouse on
-set -g terminal-overrides 'xterm*:smcup@:rmcup@'
+# マウスで範囲指定してコピペできる ちょっと使いづらい
+#set-window-option -g mode-mouse on
+#set -g terminal-overrides 'xterm*:smcup@:rmcup@'
 
 # clock-mode入ってしまったら C-? qで戻ってくる
 # clock-modeはunbindしちゃいましょ

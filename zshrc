@@ -1,22 +1,18 @@
 export LANG=ja_JP.UTF-8
 export EDITOR=emacsclient
-export SSL_CERT_FILE=/usr/local/etc/cacert.pem
+
+# HomeBrewコマンドのインストール先("/usr/local/bin or sbin")を優先する
+export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 
 # rbenv
 path=($HOME/.rbenv/bin(N) $path)
 eval "$(rbenv init -)"
 
-# emacsのエイリアス 
 alias e='emacsclient -t'
 alias kille="emacsclient -e '(kill-emacs)'"
-if pgrep emacs >/dev/null 2>&1; then
-    echo "Emacs server is already running..."
-else
-    `emacs --daemon`
-fi
 
 # エイリアス
-source ./zsh_aliases
+source ./.zsh_aliases
 
 # 補完の設定
 autoload -U compinit
@@ -79,6 +75,3 @@ fi
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
-
-# hub
-eval "$(hub alias -s)"
