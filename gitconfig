@@ -1,0 +1,14 @@
+[user]
+	name = flada-auxv
+	email = aseknock@gmail.com
+[color]
+	ui = auto
+[alias]
+	co = checkout
+	st = status
+	ci = commit
+	d = diff
+	b = branch
+	l = log
+[core]
+	excludesfile = /Users/aseknock/.gitignore_global
