@@ -2,8 +2,6 @@ alias ls="ls -p"
 alias la="ls -aG"
 alias ll="ls -lG"
 
-alias tmux\ ls="tmux list-sessions"
-
 alias b="bundle"
 alias be="bundle exec"
 alias r="rails"

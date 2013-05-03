@@ -58,18 +58,20 @@ zle -N history-beginning-search-forward-end history-search-end
 bindkey "^P" history-beginning-search-backward-end
 bindkey "^N" history-beginning-search-forward-end
 
-
 #PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#I_#P") "$PWD")'
 # tmux自動起動
 if [ -z "$TMUX" -a -z "$STY" ]; then
     if type tmux >/dev/null 2>&1; then
         if tmux has-session && tmux list-sessions | /usr/bin/grep -qE '.*]$'; then
-            tmux attach && echo "tmux attached session "
+            tmux attach && echo "tmux attached session"
         else
             tmux new-session && echo "tmux created new session"
         fi
     fi	
 fi
 
-### Added by the Heroku Toolbelt
+### for Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+
+### for postrgresql
+export PGDATA=/usr/local/var/postgres
