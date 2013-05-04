@@ -1,12 +1,17 @@
-## 重複パスを登録しない
-typeset -U path cdpath fpath manpath
+dotfiles_dir=$HOME/dotfiles
 
-# エイリアス
-source $HOME/dotfiles/zsh_aliases
+# zsh-completions
+fpath=($dotfiles_dir/zsh-completions(N-/) ${fpath})
 
 # 補完の設定
 autoload -U compinit
 compinit
+
+# 重複パスを登録しない
+typeset -U path cdpath fpath manpath
+
+# エイリアス読み込み
+source $dotfiles_dir/zsh_aliases
 
 setopt auto_cd  # ディレクトリ名のみでcdできる
 setopt auto_pushd # "cd -" でtabを押すと移動履歴のリストが表示される
