@@ -12,3 +12,4 @@
 	l = log
 [core]
 	excludesfile = /Users/aseknock/.gitignore_global
+	editor = vim

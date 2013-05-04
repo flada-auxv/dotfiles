@@ -1,13 +1,5 @@
-export LANG=ja_JP.UTF-8
-export EDITOR=emacsclient
-
-# HomeBrewコマンドのインストール先("/usr/local/bin or sbin")を優先する
-# ついでにホームディレクトリにもbinを
-export PATH="/usr/local/bin:/usr/local/sbin:$HOME/bin:$PATH"
-
-# rbenv
-path=($HOME/.rbenv/bin(N) $path)
-eval "$(rbenv init -)"
+## 重複パスを登録しない
+typeset -U path cdpath fpath manpath
 
 # エイリアス
 source $HOME/dotfiles/zsh_aliases
@@ -17,7 +9,7 @@ autoload -U compinit
 compinit
 
 setopt auto_cd  # ディレクトリ名のみでcdできる
-setopt auto_pushd # "cd -" でtaBを押すと移動履歴のリストが表示される
+setopt auto_pushd # "cd -" でtabを押すと移動履歴のリストが表示される
 setopt correct # コマンドのスペルチェック
 setopt no_beep # ビープ音を鳴らない様にする
 
@@ -58,20 +50,3 @@ zle -N history-beginning-search-forward-end history-search-end
 bindkey "^P" history-beginning-search-backward-end
 bindkey "^N" history-beginning-search-forward-end
 
-#PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#I_#P") "$PWD")'
-# tmux自動起動
-if [ -z "$TMUX" -a -z "$STY" ]; then
-    if type tmux >/dev/null 2>&1; then
-        if tmux has-session && tmux list-sessions | /usr/bin/grep -qE '.*]$'; then
-            tmux attach && echo "tmux attached session"
-        else
-            tmux new-session && echo "tmux created new session"
-        fi
-    fi	
-fi
-
-### for Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
-
-### for postrgresql
-export PGDATA=/usr/local/var/postgres
