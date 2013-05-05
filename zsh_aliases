@@ -18,3 +18,8 @@ alias v="vi"
 
 alias e='emacsclient -t'
 alias kille="emacsclient -e '(kill-emacs)'"
+
+alias bo="bundle open"
+
+alias sn="subl --new-window"
+alias sa="subl --add"

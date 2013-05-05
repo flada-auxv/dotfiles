@@ -5,7 +5,8 @@
 	ui = auto
 [alias]
 	co = checkout
-	st = status
+	s = status
+	st = status -s -b
 	ci = commit
 	d = diff
 	b = branch

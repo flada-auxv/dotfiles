@@ -1,4 +1,6 @@
 export LANG=ja_JP.UTF-8
+export EDITOR=vim
+export BUNDLER_EDITOR=subl
 
 # rbenv
 if which rbenv > /dev/null 2>&1; then
