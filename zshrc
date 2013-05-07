@@ -1,17 +1,19 @@
+# エイリアス読み込み
 dotfiles_dir=$HOME/dotfiles
+source $dotfiles_dir/zsh_aliases
 
-# zsh-completions
-fpath=($dotfiles_dir/zsh-completions(N-/) ${fpath})
+# 重複パスを登録しない
+typeset -U path cdpath fpath manpath
+
+# EDITORをvimにするとターミナル上のバインドまでvimっぽくなるので
+bindkey -e
 
 # 補完の設定
 autoload -U compinit
 compinit
 
-# 重複パスを登録しない
-typeset -U path cdpath fpath manpath
-
-# エイリアス読み込み
-source $dotfiles_dir/zsh_aliases
+# zsh-completions
+fpath=($dotfiles_dir/zsh-completions(N-/) ${fpath})
 
 setopt auto_cd  # ディレクトリ名のみでcdできる
 setopt auto_pushd # "cd -" でtabを押すと移動履歴のリストが表示される
@@ -57,3 +59,4 @@ bindkey "^N" history-beginning-search-forward-end
 
 # autojump
 [[ -s ~/.autojump/etc/profile.d/autojump.sh ]] && . ~/.autojump/etc/profile.d/autojump.sh
+

@@ -2,9 +2,10 @@ alias ls="ls -p"
 alias la="ls -aG"
 alias ll="ls -lG"
 
+alias r="rails"
 alias b="bundle"
 alias be="bundle exec"
-alias r="rails"
+alias bo="bundle open"
 
 alias g="git"
 alias clone="git clone"
@@ -12,14 +13,12 @@ alias fetch="git fetch"
 alias pull="git pull"
 alias push="git push"
 
+alias v="vi"
 alias vu="vi"
 alias vo="vi"
-alias v="vi"
 
 alias e='emacsclient -t'
 alias kille="emacsclient -e '(kill-emacs)'"
-
-alias bo="bundle open"
 
 alias sn="subl --new-window"
 alias sa="subl --add"
