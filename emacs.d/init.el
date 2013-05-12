@@ -35,7 +35,7 @@
 
 
 ;; shceme-mode(use gauche)
-(setq scheme-program-name "gosh")
+(setq scheme-program-name "gosh -i")
 (require 'cmuscheme)
 
 (defun scheme-other-window ()
@@ -44,10 +44,7 @@
         (switch-to-buffer-other-window
 	    (get-buffer-create "*scheme*"))
 	  (run-scheme scheme-program-name))
-
-(define-key global-map
-    "\C-cS" 'scheme-other-window)
-
+(define-key scheme-mode-map (kbd "C-c C-S") 'scheme-other-window)
 
 
 

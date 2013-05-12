@@ -1,3 +1,5 @@
+# ログインシェルとして起動された場合のみ読み込まれる
+
 export LANG=ja_JP.UTF-8
 export EDITOR=vim
 export BUNDLER_EDITOR=subl
