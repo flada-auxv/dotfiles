@@ -46,8 +46,15 @@ SPROMPT=$tmp_sprompt  # スペル訂正用プロンプト
 
 # olivierverdier/zsh-git-prompt
 source ~/.zsh/git-prompt/zshrc.sh
-PROMPT='${tmp_prompt}$(git_super_status) %# '
-#PROMPT='%B%m%~%b$(git_super_status) %# '
+PROMPT='${tmp_prompt}%{${fg[yellow]}%}<$(__rbenv_ps1)>%{${reset_color}%}$(git_super_status) %# '
+
+# prompt with ruby version
+# rbenv version | sed -e 's/ .*//'
+__rbenv_ps1 ()
+{
+  rbenv_ruby_version=`rbenv version | sed -e 's/ .*//'`
+  printf $rbenv_ruby_version
+}
 
 HISTFILE=~/.zsh_history
 HISTSIZE=100000
