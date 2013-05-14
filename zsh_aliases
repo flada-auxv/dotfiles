@@ -22,3 +22,5 @@ alias kille="emacsclient -e '(kill-emacs)'"
 
 alias sn="subl --new-window"
 alias sa="subl --add"
+
+alias today='tig --after=`date -v -1d "+%Y-%m-%d"` --before=`date "+%y-%m-%d"`'
