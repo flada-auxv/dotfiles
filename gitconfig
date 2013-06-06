@@ -4,19 +4,24 @@
 [color]
 	ui = auto
 [alias]
-	co = checkout
-	s = status
-	st = status -s -b
+	a = add
+	ap = add -p
+	b = branch
+	ba = branch -a
 	ci = commit
+	co = checkout
 	d = diff
 	dc = diff --cached
 	dp = diff HEAD^
-	b = branch
+	g = grep -n
 	l = log --stat
         lo = log --graph --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(bold white)― %an%C(reset)%C(bold yellow)%d%C(reset)' --abbrev-commit --date=relative
 	m = merge
-	ap = add -p
-	g = grep -n
+	pushdel = push --delete
+	resoft = reset --soft
+	rehard = reset --hard
+	s = status
+	st = status -s -b
 [core]
 	excludesfile = /Users/aseknock/.gitignore_global
 	editor = vim
