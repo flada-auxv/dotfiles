@@ -9,6 +9,7 @@ alias bo="bundle open"
 
 alias g="git"
 alias gi="git"
+alias gop="git browse"
 alias clone="git clone"
 alias fetch="git fetch"
 alias pull="git pull"
