@@ -8,6 +8,7 @@ alias be="bundle exec"
 alias bo="bundle open"
 
 alias g="git"
+alias gi="git"
 alias clone="git clone"
 alias fetch="git fetch"
 alias pull="git pull"
