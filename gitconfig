@@ -24,6 +24,7 @@
 	dw = diff --word-diff
 	g = grep -n
         l = log --graph --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(bold white)― %an%C(reset)%C(bold yellow)%d%C(reset)' --abbrev-commit --date=relative
+	lg = log --grep
 	ll = log --graph --date=short --stat
 	lo = log --graph --decorate --pretty=oneline --abbrev-commit --all
 	ls = ls-files
