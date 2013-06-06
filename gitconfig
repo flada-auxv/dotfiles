@@ -5,14 +5,15 @@
 	ui = auto
 [alias]
 	a = add
+	amend = commit --amend
 	ap = add -p
 	b = branch
 	ba = branch -a
 	bd = branch -d
 	bdel = branch -D
 	br = browse
-	ci = commit -m
 	ca = commit -am
+	ci = commit -m
 	co = checkout
 	cot = checkout -t
 	d = diff
@@ -23,8 +24,12 @@
 	dw = diff --word-diff
 	g = grep -n
         l = log --graph --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(bold white)― %an%C(reset)%C(bold yellow)%d%C(reset)' --abbrev-commit --date=relative
-	ll = log --stat --abbrev-commit
+	ll = log --graph --date=short --stat
+	lo = log --graph --decorate --pretty=oneline --abbrev-commit --all
+	ls = ls-files
 	m = merge
+	pick = add -p
+	pop = reset --soft HEAD^
 	pulla = pull --all
 	pushdel = push --delete
 	remote = remote -v
@@ -39,7 +44,7 @@
 	t = tag
 [core]
 	excludesfile = /Users/aseknock/.gitignore_global
-	editor = vim
+	editor = vim -c \"set fenc=utf-8\"
 [pull]
 	rebase = true
 [push]
