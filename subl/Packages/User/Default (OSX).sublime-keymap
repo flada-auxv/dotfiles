@@ -1,0 +1,31 @@
+[
+    // バックスクロール
+    { "keys": ["option+v"], "command": "move", "args": { "by": "pages", "forward": false } },
+
+    // SimpleRailsNav
+    { "keys": ["super+ctrl+m"], "command": "list_rails_models" },
+    { "keys": ["super+ctrl+c"], "command": "list_rails_controllers" },
+    { "keys": ["super+ctrl+v"], "command": "list_rails_views" },
+    { "keys": ["super+ctrl+h"], "command": "list_rails_helpers" },
+    { "keys": ["super+ctrl+x"], "command": "list_rails_fixtures" },
+    { "keys": ["super+ctrl+t"], "command": "list_rails_tests" },
+    { "keys": ["super+ctrl+i"], "command": "list_rails_javascripts" },
+    { "keys": ["super+ctrl+y"], "command": "list_rails_stylesheets" },
+
+    // タブ移動
+    { "keys": ["ctrl+,"], "command": "prev_view" },
+    { "keys": ["ctrl+."], "command": "next_view" },
+
+    // AdvancedNewFile パス指定してファイル新規作成
+    { "keys": ["super+ctrl+n"], "command": "advanced_new_file"},
+
+    // サイドバーのトグル
+    { "keys": ["ctrl+w"], "command": "toggle_side_bar" },
+
+    // 選択中の要素の次の要素へジャンプする
+    { "keys": ["ctrl+enter"], "command": "find_under_expand_skip" },
+
+    // DashDoc
+    { "keys": ["ctrl+shift+h"], "command": "dash_doc", "args": { "syntax_sensitive": true } },
+    { "keys": ["ctrl+h"], "command": "left_delete" } // ctrl+hを標準の動作に上書き
+]

@@ -1,0 +1,4 @@
+{
+	"last_test_run": "$HOME/.rbenv/shims/bundle exec rspec fuzzy_proxy_spec.rb/ -l4",
+	"last_test_working_dir": "/Users/aseknock/work/tmp/fuzzy_proxy_spec.rb"
+}

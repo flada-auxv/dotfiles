@@ -1,0 +1,18 @@
+{
+	"bold_folder_labels": true,
+	"color_scheme": "Packages/Color Scheme - Default/Monokai Bright.tmTheme",
+	"draw_white_space": "false",
+	"ensure_newline_at_eof_on_save": true,
+	"font_face": "Ricty",
+	"font_size": 18,
+	"fullwhitespace_viewable": true,
+	"highlight_line": true,
+	"highlight_modified_tabs": true,
+	"ignored_packages":
+	[
+		"Vintage"
+	],
+	"show_full_path": true,
+	"trim_trailing_white_space_on_save": true,
+	"find_selected_text": true
+}

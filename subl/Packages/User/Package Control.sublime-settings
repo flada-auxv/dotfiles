@@ -1,0 +1,22 @@
+{
+	"installed_packages":
+	[
+		"AdvancedNewFile",
+		"ApplySyntax",
+		"CTags",
+		"DashDoc",
+		"Dotfiles Syntax Highlighting",
+		"ERB Snippets",
+		"Gem Browser",
+		"Git",
+		"Haml",
+		"Markdown Preview",
+		"Package Control",
+		"ReadmePlease",
+		"Ruby on Rails snippets",
+		"RubyTest",
+		"SideBarEnhancements",
+		"Simple Rails Navigator",
+		"SublimeLinter"
+	]
+}
