@@ -17,6 +17,7 @@
 	ci = commit -m
 	co = checkout
 	cob = checkout -b
+	com = checkout master
 	cot = checkout -t
 	d = diff
 	dc = diff --cached
