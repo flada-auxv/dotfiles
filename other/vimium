@@ -1,0 +1,8 @@
+# Custom key mappings
+map h goBack
+map l goFoward
+map <c-n> nextTab
+map <c-p> previousTab
+map <c-a> firstTab
+map <c-e> lastTab
+map i focusInput
