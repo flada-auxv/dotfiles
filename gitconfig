@@ -5,6 +5,7 @@
 	ui = auto
 [alias]
 	a = add
+	aa = add .
 	amend = commit --amend
 	ap = add -p
 	b = branch
