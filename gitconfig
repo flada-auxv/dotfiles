@@ -30,6 +30,8 @@
 	ls = ls-files
 	m = merge
 	pick = add -p
+	pullom = push origin master
+	pushom = push origin master
 	pop = reset --soft HEAD^
 	pulla = pull --all
 	pushdel = push --delete
