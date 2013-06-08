@@ -1,1 +1,67 @@
-Packages/User/Default (OSX).sublime-keymap
+[
+    // バックスクロール
+    { "keys": ["option+v"], "command": "move", "args": { "by": "pages", "forward": false } },
+
+    // カーソル位置はそのままに表示位置をスクロールさせる
+    { "keys": ["ctrl+alt+p"], "command": "scroll_lines", "args": {"amount": 1.0} },
+    { "keys": ["ctrl+alt+n"], "command": "scroll_lines", "args": {"amount": -1.0} },
+
+    // super+dのスキップ
+    { "keys": ["super+b"], "command": "find_under_expand_skip" },
+
+    // タブ移動
+    { "keys": ["ctrl+,"], "command": "prev_view" },
+    { "keys": ["ctrl+."], "command": "next_view" },
+
+    // サイドバーのトグル
+    { "keys": ["ctrl+w"], "command": "toggle_side_bar" },
+
+    // reverse incremental_find
+    { "keys": ["super+r"], "command": "show_panel", "args": {"panel": "incremental_find", "reverse": true} },
+
+    // 範囲選択の特殊な場合
+    { "keys": ["super+shift+i"], "command": "expand_selection", "args": {"to": "indentation"} },
+    { "keys": ["super+shift+m"], "command": "expand_selection", "args": {"to": "brackets"} },
+
+    // 範囲選択の上方拡大(show_scope_nameとかいうコマンドと被る)
+    { "keys": ["ctrl+shift+p"], "command": "move", "args": {"by": "lines", "forward": false, "extend": true} },
+
+    // 置換
+    { "keys": ["super+alt+f"], "command": "show_panel", "args": {"panel": "replace"} },
+    { "keys": ["super+alt+e"], "command": "replace_next" },
+
+    // find_next より find_under の方が好みなので上書き
+    { "keys": ["ctrl+s"], "command": "find_under" },
+    { "keys": ["ctrl+r"], "command": "find_under_prev" },
+
+    // カーソル行をコピー
+    { "keys": ["super+shift+d"], "command": "duplicate_line" },
+
+    { "keys": ["ctrl+["], "command": "set_mark" },
+    { "keys": ["ctrl+@"], "command": "select_to_mark" },
+    { "keys": ["ctrl+]"], "command": "clear_bookmarks", "args": {"name": "mark"} },
+
+
+    ///////// 空いてる所 /////////
+    // super+t
+    // ctrl+; ctrl+: ctrl+t ctrl+i ctrl+u
+
+
+    ////////// Package用の設定 //////////
+    // SimpleRailsNav
+    { "keys": ["super+ctrl+m"], "command": "list_rails_models" },
+    { "keys": ["super+ctrl+c"], "command": "list_rails_controllers" },
+    { "keys": ["super+ctrl+v"], "command": "list_rails_views" },
+    { "keys": ["super+ctrl+h"], "command": "list_rails_helpers" },
+    { "keys": ["super+ctrl+x"], "command": "list_rails_fixtures" },
+    { "keys": ["super+ctrl+t"], "command": "list_rails_tests" },
+    { "keys": ["super+ctrl+i"], "command": "list_rails_javascripts" },
+    { "keys": ["super+ctrl+y"], "command": "list_rails_stylesheets" },
+
+    // AdvancedNewFile パス指定してファイル新規作成
+    { "keys": ["super+ctrl+n"], "command": "advanced_new_file"},
+
+    // DashDoc
+    { "keys": ["ctrl+shift+h"], "command": "dash_doc", "args": { "syntax_sensitive": true } },
+    { "keys": ["ctrl+h"], "command": "left_delete" } // ctrl+hを標準の動作に上書き
+]
