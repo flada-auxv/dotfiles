@@ -37,6 +37,7 @@
     // カーソル行をコピー
     { "keys": ["super+shift+d"], "command": "duplicate_line" },
 
+    // mark
     { "keys": ["ctrl+["], "command": "set_mark" },
     { "keys": ["ctrl+@"], "command": "select_to_mark" },
     { "keys": ["ctrl+]"], "command": "clear_bookmarks", "args": {"name": "mark"} },

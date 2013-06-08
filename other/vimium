@@ -6,3 +6,4 @@ map <c-p> previousTab
 map <c-a> firstTab
 map <c-e> lastTab
 map i focusInput
+unmap t
