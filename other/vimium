@@ -7,3 +7,4 @@ map <c-a> firstTab
 map <c-e> lastTab
 map i focusInput
 unmap t
+map c createTab
