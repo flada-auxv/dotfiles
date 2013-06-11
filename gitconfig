@@ -47,6 +47,7 @@
 	rehard = reset --hard
 	rehardp = reset --hard HEAD^
 	s = show
+	sh = show
 	st = status -sb
 	t = tag
 [core]
