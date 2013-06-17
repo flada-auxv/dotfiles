@@ -12,7 +12,7 @@ alias gti="git"
 alias gop="git browse"
 alias clone="git clone"
 alias fetch="git fetch"
-alias pull="git pull --all"
+alias pull="git pull"
 alias push="git push"
 
 alias v="vi"
@@ -29,3 +29,4 @@ alias today='tig --after=`date -v -1d "+%Y-%m-%d"` --before=`date "+%y-%m-%d"`'
 
 alias r="cd ../; cd -"
 
+alias rr="rake routes"

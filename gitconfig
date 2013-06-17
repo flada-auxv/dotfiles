@@ -26,6 +26,7 @@
 	dpp = diff HEAD^^
 	dppp = diff HEAD^^^
 	dw = diff --word-diff
+	f = fetch
 	g = grep -n
         l = log --graph --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(bold white)― %an%C(reset)%C(bold yellow)%d%C(reset)' --abbrev-commit --date=relative
 	lg = log --grep
@@ -39,6 +40,7 @@
 	pullom = push origin master
 	pushdel = push --delete
 	pushom = push origin master
+	pushup = push --set-upstream
 	remote = remote -v
 	resoft = reset --soft
 	resoftp = reset --soft HEAD^
@@ -53,9 +55,10 @@
 [core]
 	excludesfile = /Users/aseknock/.gitignore_global
 	editor = vim -c \"set fenc=utf-8\"
+	quotepath = false
 [pull]
 	rebase = true
 [push]
-	default = upstream
+	default = simple
 [merge]
 	ff = false
