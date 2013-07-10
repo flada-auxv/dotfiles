@@ -10,12 +10,13 @@
 	ap = add -p
 	b = branch
 	ba = branch -a
+	bc = branch --contains
 	bd = branch -d
 	bdel = branch -D
 	br = browse
-	c = commit
-	ca = commit -am
-	ci = commit -m
+	c = commit -v
+	ca = commit -va
+	clear = "!f() { git add . ; git reset --hard HEAD; }; f;"
 	co = checkout
 	cob = checkout -b
 	com = checkout master
@@ -56,6 +57,7 @@
 	excludesfile = /Users/aseknock/.gitignore_global
 	editor = vim -c \"set fenc=utf-8\"
 	quotepath = false
+	autocrlf = input
 [pull]
 	rebase = true
 [push]
