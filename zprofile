@@ -5,7 +5,7 @@ export EDITOR=vim
 export BUNDLER_EDITOR=subl
 
 # HomeBrewコマンドのインストール先("/usr/local/bin or sbin")を優先する
-# ついでにホームディレクトリにもbinを
+# ついでにホームディレクトリのbinも追加
 export PATH=/usr/local/bin:/usr/local/sbin:$HOME/bin:$PATH
 
 ### rbenv
@@ -38,4 +38,7 @@ fi
 
 # autojump
 [[ -s ~/.autojump/etc/profile.d/autojump.sh ]] && . ~/.autojump/etc/profile.d/autojump.sh
+
+export SSL_CERT_FILE=/usr/local/opt/curl-ca-bundle/share/ca-bundle.crt
+export RUBY_CONFIGURE_OPTS="--with-openssl-dir=`brew --prefix openssl` --with-readline-dir=`brew --prefix readline`"
 
