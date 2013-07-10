@@ -19,6 +19,7 @@ setopt auto_cd  # ディレクトリ名のみでcdできる
 setopt auto_pushd # "cd -" でtabを押すと移動履歴のリストが表示される
 setopt correct # コマンドのスペルチェック
 setopt no_beep # ビープ音を鳴らない様にする
+setopt prompt_subst # prompt文字列を毎回評価する
 
 autoload -U colors; colors
 # 一般ユーザ時
@@ -35,14 +36,14 @@ if [ ${UID} -eq 0 ]; then
   tmp_sprompt="%B%U${tmp_sprompt}%u%b"
 fi
 
-PROMPT=$tmp_prompt    # 通常のプロンプト
+#PROMPT=$tmp_prompt    # 通常のプロンプト
 PROMPT2=$tmp_prompt2  # セカンダリのプロンプト(コマンドが2行以上の時に表示される)
 RPROMPT=$tmp_rprompt  # 右側のプロンプト
 SPROMPT=$tmp_sprompt  # スペル訂正用プロンプト
-# SSHログイン時のプロンプト
-[ -n "${REMOTEHOST}${SSH_CONNECTION}" ] &&
-  PROMPT="%{${fg[white]}%}${HOST%%.*} ${PROMPT}"
-;
+## SSHログイン時のプロンプト
+#[ -n "${REMOTEHOST}${SSH_CONNECTION}" ] &&
+#  PROMPT="%{${fg[white]}%}${HOST%%.*} ${PROMPT}"
+#;
 
 # zsh-git-prompt
 source ~/.zsh/git-prompt/zshrc.sh
