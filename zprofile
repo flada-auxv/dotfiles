@@ -9,10 +9,8 @@ export BUNDLER_EDITOR=subl
 export PATH=/usr/local/bin:/usr/local/sbin:$HOME/bin:$PATH
 
 ### rbenv
-if which rbenv > /dev/null 2>&1; then
-  export PATH=$HOME/.rbenv/bin:$PATH
-  eval "$(rbenv init -)"
-fi
+export PATH=$HOME/.rbenv/bin:$PATH
+eval "$(rbenv init -)"
 
 ### Heroku Toolbelt
 if which heroku > /dev/null 2>&1; then
