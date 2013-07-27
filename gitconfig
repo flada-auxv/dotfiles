@@ -54,7 +54,7 @@
 	st = status -sb
 	t = tag
 [core]
-	excludesfile = /Users/aseknock/.gitignore_global
+	excludesfile = ~/.gitignore_global
 	editor = vim -c \"set fenc=utf-8\"
 	quotepath = false
 	autocrlf = input
