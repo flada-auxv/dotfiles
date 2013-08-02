@@ -50,6 +50,9 @@
 	rehard = reset --hard
 	rehardp = reset --hard HEAD^
 	s = show
+	sp = show HEAD^
+	spp = show HEAD^^
+	sppp = show HEAD^^
 	sh = show
 	st = status -sb
 	t = tag
