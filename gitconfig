@@ -42,6 +42,11 @@
 	pushdel = push --delete
 	pushom = push origin master
 	pushup = push --set-upstream
+  rb = rebase
+  rbm = rebase master
+  rba = rebase --abort
+  rbc = rebase --continue
+  rbs = rebase --skip
 	remote = remote -v
 	resoft = reset --soft
 	resoftp = reset --soft HEAD^
@@ -52,7 +57,7 @@
 	s = show
 	sp = show HEAD^
 	spp = show HEAD^^
-	sppp = show HEAD^^
+	sppp = show HEAD^^^
 	sh = show
 	st = status -sb
 	t = tag
