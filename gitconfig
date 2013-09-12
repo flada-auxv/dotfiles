@@ -58,7 +58,10 @@
 	sp = show HEAD^
 	spp = show HEAD^^
 	sppp = show HEAD^^^
-	sh = show
+	ss = show --stat
+	ssp = show HEAD^ --stat
+	sspp = show HEAD^^ --stat
+	ssppp = show HEAD^^^ --stat
 	st = status -sb
 	t = tag
 [core]
