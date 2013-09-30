@@ -42,11 +42,11 @@
 	pushdel = push --delete
 	pushom = push origin master
 	pushup = push --set-upstream
-  rb = rebase
-  rbm = rebase master
-  rba = rebase --abort
-  rbc = rebase --continue
-  rbs = rebase --skip
+	rb = rebase
+	rbm = rebase master
+	rba = rebase --abort
+	rbc = rebase --continue
+	rbs = rebase --skip
 	remote = remote -v
 	resoft = reset --soft
 	resoftp = reset --soft HEAD^
