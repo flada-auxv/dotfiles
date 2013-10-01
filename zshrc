@@ -1,5 +1,5 @@
 # エイリアス読み込み
-dotfiles_dir=$HOME/dotfiles
+dotfiles_dir=$HOME/work/repos/dotfiles
 source $dotfiles_dir/zsh_aliases
 
 # 重複パスを登録しない
