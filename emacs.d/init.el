@@ -45,27 +45,3 @@
 	    (get-buffer-create "*scheme*"))
 	  (run-scheme scheme-program-name))
 (define-key scheme-mode-map (kbd "C-c C-S") 'scheme-other-window)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
