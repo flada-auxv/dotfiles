@@ -1,16 +1,12 @@
 # ログインシェルとして起動された場合のみ読み込まれる
 
 export LANG=ja_JP.UTF-8
-export EDITOR=vim
+export EDITOR=/usr/local/bin/vim
 export BUNDLER_EDITOR=subl
 
 # HomeBrewコマンドのインストール先("/usr/local/bin or sbin")を優先する
 # ついでにホームディレクトリのbinも追加
 export PATH=/usr/local/bin:/usr/local/sbin:$HOME/bin:$PATH
-
-### rbenv
-export PATH=$HOME/.rbenv/bin:$PATH
-eval "$(rbenv init -)"
 
 ### Heroku Toolbelt
 if which heroku > /dev/null 2>&1; then

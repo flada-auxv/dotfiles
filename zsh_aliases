@@ -1,3 +1,6 @@
+alias r="cd ../; cd -"
+alias reload="exec $SHELL -l"
+
 alias ls="ls -pG"
 alias la="ls -aG"
 alias ll="ls -lG"
@@ -29,8 +32,13 @@ alias kille="emacsclient -e '(kill-emacs)'"
 alias sn="subl --new-window"
 alias sa="subl --add"
 
-alias today='tig --after=`date -v -1d "+%Y-%m-%d"` --before=`date "+%y-%m-%d"`'
-
-alias r="cd ../; cd -"
-
 alias rr="rake routes"
+
+alias vi="/usr/local/bin/vim"
+
+# tmuxとクリップボードの同期
+function tmux-copy() {
+  tmux save-buffer - | reattach-to-user-namespace pbcopy
+  return 0
+}
+alias tcopy=tmux-copy

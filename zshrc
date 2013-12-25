@@ -2,6 +2,10 @@
 dotfiles_dir=$HOME/work/repos/dotfiles
 source $dotfiles_dir/zsh_aliases
 
+### rbenv
+export PATH=$HOME/.rbenv/bin:$PATH
+eval "$(rbenv init -)"
+
 # 重複パスを登録しない
 typeset -U path cdpath fpath manpath
 
