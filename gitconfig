@@ -5,7 +5,7 @@
 	ui = auto
 [alias]
 	a = add
-	aa = add .
+	aa = add --all
 	amend = commit --amend
 	ap = add -p
 	b = branch
@@ -14,6 +14,7 @@
 	bd = branch -d
 	bdel = branch -D
 	br = browse
+	branch-rename = b -m
 	c = commit -v
 	ca = commit -va
 	clear = "!f() { git add . ; git reset --hard HEAD; }; f;"
@@ -39,6 +40,8 @@
 	pop = reset --soft HEAD^
 	pulla = pull --all
 	pullom = push origin master
+  prune-local = !git branch --merged | grep -v \\* | xargs -I % git branch -d %
+	prune-remote = remote prune origin
 	pushdel = push --delete
 	pushom = push origin master
 	pushup = push --set-upstream

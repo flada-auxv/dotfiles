@@ -1,4 +1,3 @@
-alias r="cd ../; cd -"
 alias reload="exec $SHELL -l"
 
 alias ls="ls -pG"
@@ -31,6 +30,8 @@ alias kille="emacsclient -e '(kill-emacs)'"
 
 alias sn="subl --new-window"
 alias sa="subl --add"
+
+alias r="rails"
 
 alias rr="rake routes"
 

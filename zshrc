@@ -6,18 +6,20 @@ source $dotfiles_dir/zsh_aliases
 export PATH=$HOME/.rbenv/bin:$PATH
 eval "$(rbenv init -)"
 
+### nodebrew
+export PATH=$HOME/.nodebrew/current/bin:$PATH
+
 # 重複パスを登録しない
 typeset -U path cdpath fpath manpath
 
 # EDITORをvimにするとターミナル上のバインドまでvimっぽくなるので
 bindkey -e
 
+fpath=(/usr/local/share/zsh-completions ${fpath})
+
 # 補完の設定
 autoload -U compinit
 compinit
-
-# zsh-completions
-fpath=($dotfiles_dir/zsh-completions(N-/) ${fpath})
 
 setopt auto_cd  # ディレクトリ名のみでcdできる
 setopt auto_pushd # "cd -" でtabを押すと移動履歴のリストが表示される
@@ -75,3 +77,6 @@ bindkey "^N" history-beginning-search-forward-end
 # hub
 eval "$(hub alias -s)"
 
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
