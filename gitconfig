@@ -24,6 +24,7 @@
 	cot = checkout -t
 	d = diff
 	dc = diff --cached
+	dm = diff origin/master
 	dp = diff HEAD^
 	dpp = diff HEAD^^
 	dppp = diff HEAD^^^
@@ -40,7 +41,7 @@
 	pop = reset --soft HEAD^
 	pulla = pull --all
 	pullom = push origin master
-  prune-local = !git branch --merged | grep -v \\* | xargs -I % git branch -d %
+	prune-local-merged = !git branch --merged | grep -v \\* | grep -v master | xargs -I % git branch -d %
 	prune-remote = remote prune origin
 	pushdel = push --delete
 	pushom = push origin master
